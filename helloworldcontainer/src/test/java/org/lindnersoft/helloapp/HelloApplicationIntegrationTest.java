@@ -36,7 +36,8 @@ public class HelloApplicationIntegrationTest {
     @Container
     public static GenericContainer helloAppTestContainer
             = new GenericContainer(dockerImageName)
-            .withExposedPorts(port);
+            .withExposedPorts(port)
+            .withEnv("MESSAGE", "Hello from the integration test.");
 
     @BeforeEach
     public void beforeEach() {

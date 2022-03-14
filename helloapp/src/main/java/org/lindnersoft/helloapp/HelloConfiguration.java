@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class HelloConfiguration {
 
     @Bean
-    public String message(@Value("${message}") String message) {
+    public String message(@Value("${message:Default Message}") String message) {
         return message;
     }
 }

@@ -21,28 +21,17 @@ public class HelloApplicationIntegrationTest {
     private static final String TEST_MESSAGE = "What a lovely integration test.";
 
     private static File dockerfileFile = new File("Dockerfile");
-    private static String dockerfileFileAbsolutePath = dockerfileFile.getAbsolutePath();
+    private static File jarFile = new File("./target/lib/helloapp-1.0-SNAPSHOT.jar");
 
     public static ImageFromDockerfile imageFromDockerfile = new ImageFromDockerfile()
-            .withFileFromPath("Dockerfile", dockerfileFile.toPath());
-
-    private static String dockerImageName = "helloworldcontainer:1.0-SNAPSHOT";
+            .withFileFromPath("/target/lib/helloapp-1.0-SNAPSHOT.jar", jarFile.toPath().toAbsolutePath())
+            .withFileFromPath("Dockerfile", dockerfileFile.toPath().toAbsolutePath());
 
     @Container
     public static GenericContainer helloAppTestContainer
-            = new GenericContainer(dockerImageName)
+            = new GenericContainer(imageFromDockerfile)
             .withExposedPorts(CONTAINER_EXPOSED_PORT)
             .withEnv("MESSAGE", TEST_MESSAGE);
-
-//    @Container
-//    public static GenericContainer helloAppTestContainer2
-//            = new GenericContainer(imageFromDockerfile)
-//            .withExposedPorts(CONTAINER_EXPOSED_PORT)
-//            .withEnv("MESSAGE", TEST_MESSAGE);
-
-    @BeforeEach
-    public void beforeEach() {
-    }
 
     @Test
     public void testHelloAppContainer() {

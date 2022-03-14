@@ -13,6 +13,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testcontainers
 public class HelloApplicationIntegrationTest {
@@ -43,5 +44,10 @@ public class HelloApplicationIntegrationTest {
         ResponseEntity<String> response = restTemplate.getForEntity(resourceUrl, String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertEquals(response.getBody(), TEST_MESSAGE);
+    }
+
+    @Test
+    public void fail() {
+        assertTrue(false);
     }
 }
